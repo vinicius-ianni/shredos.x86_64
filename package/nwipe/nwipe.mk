@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-NWIPE_ARCH = $(call qstrip,$(BR2_ARCH))
+NWIPE_BUILD_ARCH = $(call qstrip,$(BR2_ARCH))
 NWIPE_VERSION = $(call qstrip,$(BR2_PACKAGE_NWIPE_GIT_REVISION))
 NWIPE_DEPENDENCIES = ncurses parted dmidecode coreutils libconfig
 NWIPE_SITE_METHOD = git
@@ -20,9 +20,9 @@ endif
 ################################################################################
 
 define NWIPE_CHECK_ARCH
-	case "$(NWIPE_ARCH)" in \
+	case "$(NWIPE_BUILD_ARCH)" in \
 	i686|x86_64) ;; \
-	*) echo "Unsupported architecture: $(NWIPE_ARCH)"; exit 1 ;; \
+	*) echo "Unsupported architecture: $(NWIPE_BUILD_ARCH)"; exit 1 ;; \
 	esac
 endef
 
@@ -46,7 +46,7 @@ NWIPE_VERSION_BANNER = $(shell printf "%.7s-commit-dev" "$(NWIPE_VERSION)")
 endif
 
 # Normalize x86_64 to x86-64 for version
-NWIPE_VERSION_ARCH = $(if $(filter x86_64,$(NWIPE_ARCH)),x86-64,$(NWIPE_ARCH))
+NWIPE_VERSION_ARCH = $(if $(filter x86_64,$(NWIPE_BUILD_ARCH)),x86-64,$(NWIPE_BUILD_ARCH))
 
 define NWIPE_UPDATE_VERSION_TXT
 	echo "Updating version.txt: arch=$(NWIPE_VERSION_ARCH) banner=$(NWIPE_VERSION_BANNER)"
