@@ -18,14 +18,14 @@ endif
 # Architecture safeguard
 ################################################################################
 
-define CHECK_SUPPORTED_ARCH
+define NWIPE_CHECK_ARCH
   @case "$(BR2_ARCH)" in \
 	i686|x86_64) ;; \
 	*) echo "Unsupported architecture: $(BR2_ARCH)"; exit 1 ;; \
   esac
 endef
 
-NWIPE_PRE_CONFIGURE_HOOKS += CHECK_SUPPORTED_ARCH
+NWIPE_PRE_CONFIGURE_HOOKS += NWIPE_CHECK_ARCH
 
 ################################################################################
 # SHREDOS version.txt and banner updater. Updates the nwipe version which
