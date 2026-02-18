@@ -19,10 +19,10 @@ endif
 ################################################################################
 
 define NWIPE_CHECK_ARCH
-  @case "$(BR2_ARCH)" in \
+	@case "$(BR2_ARCH)" in \
 	i686|x86_64) ;; \
 	*) echo "Unsupported architecture: $(BR2_ARCH)"; exit 1 ;; \
-  esac
+	esac
 endef
 
 NWIPE_PRE_CONFIGURE_HOOKS += NWIPE_CHECK_ARCH
