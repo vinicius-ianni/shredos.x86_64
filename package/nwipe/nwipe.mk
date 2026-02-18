@@ -38,14 +38,14 @@ SHREDOS_VERSION_FILE = board/shredos/fsoverlay/etc/shredos/version.txt
 
 # If version contains a dot, treat it as a release tag
 ifneq ($(findstring .,$(NWIPE_VERSION)),)
-NWIPE_VERSION_BANNER := $(NWIPE_VERSION)
+NWIPE_VERSION_BANNER = $(NWIPE_VERSION)
 else
 # Otherwise assume it is a development version by hash
-NWIPE_VERSION_BANNER := $(shell printf "%.7s-commit-dev" "$(NWIPE_VERSION)")
+NWIPE_VERSION_BANNER = $(shell printf "%.7s-commit-dev" "$(NWIPE_VERSION)")
 endif
 
 # Normalize x86_64 to x86-64 for version
-NWIPE_VARCH := $(if $(filter x86_64,$(BR2_ARCH)),x86-64,$(BR2_ARCH))
+NWIPE_VARCH = $(if $(filter x86_64,$(strip $(BR2_ARCH))),x86-64,$(BR2_ARCH))
 
 define NWIPE_UPDATE_VERSION_TXT
 	echo "Updating version.txt: arch=$(NWIPE_VARCH) banner=$(NWIPE_VERSION_BANNER)"
