@@ -1,6 +1,5 @@
 config BR2_PACKAGE_NWIPE
 	bool "nwipe"
-	depends on BR2_x86_64 || BR2_x86_i686
 	select BR2_PACKAGE_NCURSES
 	select BR2_PACKAGE_PARTED
 	select BR2_PACKAGE_COREUTILS
