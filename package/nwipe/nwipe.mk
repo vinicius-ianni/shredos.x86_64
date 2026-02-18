@@ -4,6 +4,7 @@
 #
 ################################################################################
 
+NWIPE_ARCH = $(call qstrip,$(BR2_ARCH))
 NWIPE_VERSION = $(call qstrip,$(BR2_PACKAGE_NWIPE_GIT_REVISION))
 NWIPE_DEPENDENCIES = ncurses parted dmidecode coreutils libconfig
 NWIPE_SITE_METHOD = git
@@ -19,7 +20,7 @@ endif
 ################################################################################
 
 define NWIPE_CHECK_ARCH
-	case "$(BR2_ARCH)" in \
+	case "$(NWIPE_ARCH)" in \
 	i686|x86_64) ;; \
 	*) echo "Unsupported architecture: $(BR2_ARCH)"; exit 1 ;; \
 	esac
@@ -45,13 +46,13 @@ NWIPE_VERSION_BANNER = $(shell printf "%.7s-commit-dev" "$(NWIPE_VERSION)")
 endif
 
 # Normalize x86_64 to x86-64 for version
-NWIPE_VARCH = $(if $(filter x86_64,$(strip $(BR2_ARCH))),x86-64,$(BR2_ARCH))
+NWIPE_VERSION_ARCH = $(if $(filter x86_64,$(NWIPE_ARCH)),x86-64,$(NWIPE_ARCH))
 
 define NWIPE_UPDATE_VERSION_TXT
-	echo "Updating version.txt: arch=$(NWIPE_VARCH) banner=$(NWIPE_VERSION_BANNER)"
-	sed -i "s/\(.*_\)\(x86-64\|i686\)_.*$$/\1$(NWIPE_VARCH)_$(NWIPE_VERSION_BANNER)/" \
+	echo "Updating version.txt: arch=$(NWIPE_VERSION_ARCH) banner=$(NWIPE_VERSION_BANNER)"
+	sed -i "s/\(.*_\)\(x86-64\|i686\)_.*$$/\1$(NWIPE_VERSION_ARCH)_$(NWIPE_VERSION_BANNER)/" \
 		$(SHREDOS_VERSION_FILE)
-	grep -q "$(NWIPE_VARCH)_$(NWIPE_VERSION_BANNER)" $(SHREDOS_VERSION_FILE) || \
+	grep -q "$(NWIPE_VERSION_ARCH)_$(NWIPE_VERSION_BANNER)" $(SHREDOS_VERSION_FILE) || \
 		{ echo "ERROR: Failed to update version.txt - unexpected format in file?"; exit 1; }
 endef
 
