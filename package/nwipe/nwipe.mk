@@ -22,7 +22,7 @@ endif
 define NWIPE_CHECK_ARCH
 	case "$(NWIPE_ARCH)" in \
 	i686|x86_64) ;; \
-	*) echo "Unsupported architecture: $(BR2_ARCH)"; exit 1 ;; \
+	*) echo "Unsupported architecture: $(NWIPE_ARCH)"; exit 1 ;; \
 	esac
 endef
 
