@@ -48,10 +48,10 @@ endif
 NWIPE_VARCH := $(if $(filter x86_64,$(BR2_ARCH)),x86-64,$(BR2_ARCH))
 
 define NWIPE_UPDATE_VERSION_TXT
-	@echo "Updating version.txt: arch=$(NWIPE_VARCH) banner=$(NWIPE_VERSION_BANNER)"
-	@sed -i "s/\(.*_\)\(x86-64\|i686\)_.*$$/\1$(NWIPE_VARCH)_$(NWIPE_VERSION_BANNER)/" \
+	echo "Updating version.txt: arch=$(NWIPE_VARCH) banner=$(NWIPE_VERSION_BANNER)"
+	sed -i "s/\(.*_\)\(x86-64\|i686\)_.*$$/\1$(NWIPE_VARCH)_$(NWIPE_VERSION_BANNER)/" \
 		$(SHREDOS_VERSION_FILE)
-	@grep -q "$(NWIPE_VARCH)_$(NWIPE_VERSION_BANNER)" $(SHREDOS_VERSION_FILE) || \
+	grep -q "$(NWIPE_VARCH)_$(NWIPE_VERSION_BANNER)" $(SHREDOS_VERSION_FILE) || \
 		{ echo "ERROR: Failed to update version.txt - unexpected format in file?"; exit 1; }
 endef
 
